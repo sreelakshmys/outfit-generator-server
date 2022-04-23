@@ -10,4 +10,4 @@
 | -------------------------------- | ------ |
 | http://localhost:8000/surpriseme | `GET`  |
 
-Returns a random outfit which consists of an underwear, outerwear and accessories, The data is fetched from the NEWYORKER API.
+Returns a random outfit which consists of an underwear, outerwear and accessories. The data is fetched from the NEWYORKER API.
