@@ -3,6 +3,8 @@ require("dotenv").config();
 
 const getRandomOutfit = async (req, res) => {
   const { gender, countryCode } = req.params;
+
+  // check if valid gender value (sanity check)
   if (gender !== "FEMALE" && gender !== "MALE")
     return res.status(500).send("Invalid category");
 
@@ -22,12 +24,12 @@ const getRandomOutfit = async (req, res) => {
       jsonData?.items,
       "maintenance_group"
     );
-
     const outfitArray = [];
     while (outfitArray.length < 1) {
       let productObject = { outerWear: [], underWear: [], accessories: [] };
       await getRandomOuterWearOutfits(groupedArray, productObject);
-      getRandomUnderWearOutfits(groupedArray, productObject);
+
+      await getRandomUnderWearOutfits(groupedArray, productObject);
       await getRandomAccessories(gender, productObject);
       outfitArray.push(productObject);
     }
@@ -44,7 +46,11 @@ const groupByMaintenanceGroup = (inputArray, key) => {
     let maintenanceGroup = [currentValue[key]][0].toLowerCase();
     if (
       !maintenanceGroup.includes("underwear") &&
-      (maintenanceGroup.includes("top") || maintenanceGroup.includes("shirt"))
+      (maintenanceGroup.includes("top") ||
+        maintenanceGroup.includes("shirt") ||
+        maintenanceGroup.includes(
+          "coat" || maintenanceGroup.includes("pullover")
+        ))
     ) {
       accumulator["TopWear"] = [
         ...(accumulator["TopWear"] || []),
@@ -114,7 +120,6 @@ const getRandomOuterWearOutfits = (groupedArray, productObject) => {
         keyItem != "Accessoires Bags"
     );
     const randomOutfitCategory = keyValues[randomValueGenerator(keyValues)];
-
     if (
       randomOutfitCategory === "TopWear" ||
       (randomOutfitCategory === "BottomWear" &&
