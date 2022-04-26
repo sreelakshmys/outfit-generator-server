@@ -46,11 +46,12 @@ const groupByMaintenanceGroup = (inputArray, key) => {
     let maintenanceGroup = [currentValue[key]][0].toLowerCase();
     if (
       !maintenanceGroup.includes("underwear") &&
+      !maintenanceGroup.includes("bikini") &&
       (maintenanceGroup.includes("top") ||
         maintenanceGroup.includes("shirt") ||
-        maintenanceGroup.includes(
-          "coat" || maintenanceGroup.includes("pullover")
-        ))
+        maintenanceGroup.includes("blouse") ||
+        maintenanceGroup.includes("coat") ||
+        maintenanceGroup.includes("pullover"))
     ) {
       accumulator["TopWear"] = [
         ...(accumulator["TopWear"] || []),
@@ -58,6 +59,7 @@ const groupByMaintenanceGroup = (inputArray, key) => {
       ];
     } else if (
       !maintenanceGroup.includes("swim") &&
+      !maintenanceGroup.includes("sleep") &&
       (maintenanceGroup.includes("pant") ||
         maintenanceGroup.includes("short") ||
         maintenanceGroup.includes("skirt") ||
@@ -67,7 +69,11 @@ const groupByMaintenanceGroup = (inputArray, key) => {
         ...(accumulator["BottomWear"] || []),
         currentValue,
       ];
-    } else if (maintenanceGroup.includes("underwear")) {
+    } else if (
+      maintenanceGroup.includes("underwear") ||
+      maintenanceGroup.includes("brief") ||
+      maintenanceGroup.includes("sleep")
+    ) {
       if (
         maintenanceGroup.includes("bra") ||
         maintenanceGroup.includes("top")
