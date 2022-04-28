@@ -180,11 +180,13 @@ const getRandomUnderWearOutfits = (groupedArray, productObject) => {
       groupedArray?.UnderWearTopWear[
         randomValueGenerator(groupedArray?.UnderWearTopWear)
       ];
+    productObject.underWear.push(randomUnderWearTopWear);
+  }
+  if (groupedArray?.UnderWearBottomWear) {
     const randomUnderWearBottomWear =
       groupedArray?.UnderWearBottomWear[
         randomValueGenerator(groupedArray?.UnderWearBottomWear)
       ];
-    productObject.underWear.push(randomUnderWearTopWear);
     productObject.underWear.push(randomUnderWearBottomWear);
   }
 };
